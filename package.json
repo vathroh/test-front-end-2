@@ -5,9 +5,12 @@
   "dependencies": {
     "@ant-design/pro-components": "^1.1.5",
     "@ant-design/pro-provider": "^1.7.2",
+    "@ckeditor/ckeditor5-build-classic": "^34.1.0",
+    "@ckeditor/ckeditor5-react": "^5.0.2",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
+    "@types/ckeditor": "^4.9.10",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.11.41",
     "@types/react": "^18.0.12",
@@ -50,5 +53,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/ckeditor__ckeditor5-build-classic": "^29.0.1",
+    "@types/ckeditor__ckeditor5-core": "^33.0.3"
   }
 }

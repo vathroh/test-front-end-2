@@ -1,7 +1,6 @@
 import {
     AppstoreOutlined,
     FileTextOutlined,
-    HomeOutlined,
     NotificationOutlined,
     ReadOutlined,
     RightOutlined,
@@ -11,19 +10,15 @@ import {
     SmileOutlined,
     TagOutlined,
 } from '@ant-design/icons';
-import { Breadcrumb, Layout, Menu } from 'antd';
+import { Layout, Menu } from 'antd';
 import React, { useState } from 'react';
 import { Typography } from 'antd';
 import { Link, Outlet } from 'react-router-dom';
 import SubMenu from 'antd/lib/menu/SubMenu';
-import { useDispatch } from 'react-redux';
-import { useTypedSelector } from '../hooks/useTypedSelectior';
-import { RootState, userActionCreators } from '../store';
-import { bindActionCreators } from 'redux';
 import MainHeader from '../components/MainHeader';
 
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Footer, Sider } = Layout;
 const { Title } = Typography;
 
 export interface IHomePageProps { 
@@ -91,11 +86,6 @@ const Home: React.FunctionComponent<IHomePageProps> = (data, isLogin) => {
                         <SettingOutlined />
                         <span>Settings</span>
                         <Link to=""></Link>
-                    </Menu.Item>
-                    <Menu.Item key="login">
-                        <SettingOutlined />
-                        <span>Login</span>
-                        <Link to="/login"></Link>
                     </Menu.Item>
                 </Menu>
             </Sider>

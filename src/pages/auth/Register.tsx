@@ -2,20 +2,20 @@ import React, { useEffect, useState } from 'react'
 import { Button, Form, Input } from 'antd';
 import { LockOutlined, MailOutlined, ShopOutlined, UserOutlined } from '@ant-design/icons';
 import { Link, useNavigate } from 'react-router-dom';
-
+import en from 'world_countries_lists/data/countries/en/world.json';
+import { useTypedSelector } from '../../hooks/useTypedSelectior';
+import { RootState } from '../../store';
 import CountryPhoneInput, {
     CountryPhoneInputValue,
     ConfigProvider,
 } from 'antd-country-phone-input';
-import en from 'world_countries_lists/data/countries/en/world.json';
-import { useTypedSelector } from '../../hooks/useTypedSelectior';
-import { RootState } from '../../store';
+
 
 export interface IRegisterPageProps {}
 
 const Register: React.FunctionComponent<IRegisterPageProps> = (props) => {
 
-    const { isLogin } = useTypedSelector((state:RootState) => state.userReducer)
+    const { isLogin, loading } = useTypedSelector((state:RootState) => state.userReducer)
     const navigate = useNavigate()
 
     useEffect(()=>{
@@ -50,6 +50,7 @@ const Register: React.FunctionComponent<IRegisterPageProps> = (props) => {
                     autoComplete="off"
                 >
                     <Form.Item
+                        hasFeedback
                         name="tenant-name"
                         rules={[
                             {
@@ -62,6 +63,7 @@ const Register: React.FunctionComponent<IRegisterPageProps> = (props) => {
                     </Form.Item>
 
                     <Form.Item
+                        hasFeedback
                         name="admin-name"
                         rules={[
                             {
@@ -74,6 +76,7 @@ const Register: React.FunctionComponent<IRegisterPageProps> = (props) => {
                     </Form.Item>
 
                     <Form.Item
+                        hasFeedback
                         name="email"
                         rules={[
                             {
@@ -90,6 +93,7 @@ const Register: React.FunctionComponent<IRegisterPageProps> = (props) => {
                     </Form.Item>
 
                     <Form.Item
+                        hasFeedback
                         name="phone-number"
                         rules={[
                             {
@@ -131,7 +135,7 @@ const Register: React.FunctionComponent<IRegisterPageProps> = (props) => {
                             placeholder="Password"
                         />
                     </Form.Item>
-                    <Button className="primary login-form-button" type="primary" htmlType="submit" >Register</Button>
+                    <Button className="primary login-form-button" type="primary" htmlType="submit" >{ loading ? 'Loading ...' : 'Register' }</Button>
                 </Form>
                 <p>Already have an account? <span><Link to="/login">Login here</Link></span></p>
             </div>

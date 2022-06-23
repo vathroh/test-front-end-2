@@ -2,7 +2,7 @@ import { ProTable } from '@ant-design/pro-components';
 import { ProColumns } from '@ant-design/pro-components';
 import { Button, ConfigProvider, Input } from 'antd';
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { PlusOutlined, SearchOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../../hooks/useTypedSelectior';
@@ -36,7 +36,7 @@ export type product = {
 export type user = {
     token: string;
     user: {
-        tenant : {
+        tenant: {
             id: string
         }
     }
@@ -50,38 +50,42 @@ export type category = {
 export type products = []
 
 const AllProducts: React.FunctionComponent = () => {
+    const navigate = useNavigate()
     const dispatch = useDispatch()
-    const { products } = useTypedSelector((state:RootState) => state.productReducer)
+    const { products, loading } = useTypedSelector((state: RootState) => state.productReducer)
     const { getProductList } = bindActionCreators(productActionCreators, dispatch)
-    const { data } = useTypedSelector((state:RootState) => state.userReducer)
-    const user:user = data
+    const { data } = useTypedSelector((state: RootState) => state.userReducer)
+    const user: user = data
     const token = user.token
     const tenantId = user.user.tenant.id
 
-    useEffect(()=>{
-        getProductList(token, tenantId)
-    }, [dispatch])
-    
+    // useEffect(()=>{
+    //     getProductList(token, tenantId)
+    // }, [dispatch])
+
     const tableListDataSource: TableListItem[] = [];
 
-    Object.keys(products).map( (i)=>{
-        let product:product = products[i]
-        let productCategories = product.categories
+    if (products !== null) {
 
-        let categoriesText = ''
-        productCategories.map( (item) => {
-            categoriesText += item.name + ', '
+        Object.keys(products).map((i) => {
+            let product: product = products[i]
+            let productCategories = product.categories
+
+            let categoriesText = ''
+            productCategories.map((item) => {
+                categoriesText += item.name + ', '
+            })
+
+            tableListDataSource.push({
+                key: product.id,
+                productName: product.name,
+                priority: product.priority,
+                categories: categoriesText,
+                price: product.price,
+                status: product.status,
+            });
         })
-
-        tableListDataSource.push({            
-            key: product.id,
-            productName: product.name,
-            priority: product.priority,
-            categories: categoriesText,
-            price: product.price,
-            status: product.status,
-        });
-    })
+    }
 
     const columns: ProColumns<TableListItem>[] = [
         {
@@ -149,7 +153,12 @@ const AllProducts: React.FunctionComponent = () => {
             title: 'Action',
             key: 'action',
             render: () => {
-                return <Button>halo</Button>
+                return (
+                    <div>
+                        <Button>Edit</Button>
+                        <Button>Delete</Button>
+                    </div>
+                )
             }
         },
     ];
@@ -157,9 +166,11 @@ const AllProducts: React.FunctionComponent = () => {
     return (
         <ConfigProvider locale={enUSIntl}>
             <ProTable<TableListItem>
+                loading={loading}
                 columns={columns}
                 request={(params, sorter, filter) => {
-                    // console.log(params, sorter, filter);
+                    getProductList(token, tenantId)
+                    console.log(params, sorter, filter);
                     return Promise.resolve({
                         data: tableListDataSource,
                         success: true,
@@ -173,8 +184,7 @@ const AllProducts: React.FunctionComponent = () => {
                             key="add"
                             type="primary"
                             onClick={() => {
-                                // alert('add');
-                                getProductList(token, tenantId)
+                                navigate('/add-product')
                             }}
                         >
                             <PlusOutlined />

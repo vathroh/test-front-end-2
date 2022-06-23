@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, Spin } from 'antd';
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -14,7 +14,7 @@ export interface ILoginPageProps { }
 const Login: React.FunctionComponent<ILoginPageProps> = () => {
 
     const dispatch = useDispatch();
-    const { isLogin } = useTypedSelector((state: RootState) => state.userReducer)
+    const { isLogin, loading } = useTypedSelector((state: RootState) => state.userReducer)
     const { getLogin } = bindActionCreators(userActionCreators, dispatch)
     const navigate = useNavigate()
 
@@ -47,8 +47,9 @@ const Login: React.FunctionComponent<ILoginPageProps> = () => {
                     onFinishFailed={onFinishFailed}
                     autoComplete="off"
                 >
-                    <Form.Item
+                    <Form.Item                        
                         name="email"
+                        hasFeedback 
                         rules={[
                             {
                                 type: 'email',
@@ -60,7 +61,7 @@ const Login: React.FunctionComponent<ILoginPageProps> = () => {
                             },
                         ]}
                     >
-                        <Input prefix={<MailOutlined className="site-form-item-icon" />} placeholder="Email" />
+                        <Input prefix={<MailOutlined className="site-form-item-icon" />} placeholder="Email" id='email'/>
                     </Form.Item>
 
                     <Form.Item
@@ -86,7 +87,7 @@ const Login: React.FunctionComponent<ILoginPageProps> = () => {
                         />
                     </Form.Item>
                     <p><Link to="/reset-password">Forgot password?</Link></p>
-                    <Button className="primary login-form-button" type="primary" htmlType="submit" >Login</Button>
+                    <Button className="primary login-form-button" type="primary" htmlType="submit" loading={loading}>Login</Button>
                     <Button className="login-form-button" htmlType="submit" >Login with Phone</Button>
                 </Form>
                 <p>Don't have any account yet? <span><Link to="/register">Sign up here</Link></span></p>

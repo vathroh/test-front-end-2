@@ -7,6 +7,10 @@ export const getLogin = (email: string, password: string) => {
 
     
     return async (dispatch: Dispatch) => {
+
+        dispatch({
+            type: ActionType.GET_USER_REQUEST
+        })
         
         await axios({
             method: 'POST',
