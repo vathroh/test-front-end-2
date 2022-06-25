@@ -62,7 +62,6 @@ const UploadImage: React.FunctionComponent<TextProps> = (text) => {
     </div>
   );
 
-  console.log(uploadText.text)
   return (
     <>
       <Upload

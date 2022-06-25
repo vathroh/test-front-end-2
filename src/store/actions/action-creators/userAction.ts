@@ -2,6 +2,7 @@ import axios from "axios"
 import { Dispatch } from "redux"
 import { ActionType } from "../action-types"
 
+const baseURL = 'https://api.warung.io'
 
 export const getLogin = (email: string, password: string) => {
 
@@ -14,7 +15,7 @@ export const getLogin = (email: string, password: string) => {
         
         await axios({
             method: 'POST',
-            url: 'https://api.development.warung.io/admin/tenant/auth/login-with-email',
+            url: baseURL + '/admin/tenant/auth/login-with-email',
             timeout: 120000,
             data: {
                 email: email,

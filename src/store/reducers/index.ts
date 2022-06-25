@@ -1,14 +1,12 @@
 import { combineReducers } from "redux";
-import noteReducer from "./noteReducer";
-import bankReducer from "./bankReducer";
 import userReducer from "./userReducer";
 import productReducer from "./productReducer";
+import CategoryReducer from "./categoryReducer";
 
 const reducers = combineReducers({
-    noteReducer,
-    bankReducer,
     userReducer,
-    productReducer
+    productReducer,
+    CategoryReducer,
 })
 
 export default reducers

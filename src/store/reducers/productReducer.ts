@@ -36,6 +36,11 @@ const productReducer = (state: ProductState = initialState, action: Action) => {
                 products: null,
                 error: action.payload
             }
+        case ActionType.DELETE_PRODUCT_SUCCESS:
+            return {
+                deleteProductSuccess: action.payload,
+                error: null
+            }
         default:
             return state
     }

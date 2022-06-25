@@ -1,27 +1,5 @@
 import { ActionType } from "./action-types";
 
-interface GetNoteAction {
-    type: ActionType.GET_NOTES
-}
-
-interface PostNoteAction {
-    type: ActionType.POST_NOTES
-}
-
-interface DepositAction {
-    type: ActionType.DEPOSIT,
-    payload: number
-}
-
-interface WithdrawAction {
-    type: ActionType.WITHDRAW,
-    payload: number
-}
-
-interface BankruptAction {
-    type: ActionType.BANKRUPT
-}
-
 interface getUserRequestAction{
     type: ActionType.GET_USER_REQUEST
 }
@@ -54,12 +32,32 @@ interface GetProductListFail {
     payload: string
 }
 
+interface GetCategories {
+    type: ActionType.GET_CATEGORIES,
+    payload: string
+}
 
-export type Action = GetNoteAction 
-| PostNoteAction
-| DepositAction
-| WithdrawAction
-| BankruptAction
+interface GetCategoriesFail {
+    type: ActionType.GET_CATEGORIES_FAIL,
+    payload: string
+}
+
+interface deleteProduct {
+    type: ActionType.DELETE_PRODUCT
+}
+
+interface deleteProductSuccess {
+    type: ActionType.DELETE_PRODUCT_SUCCESS,
+    payload: string
+}
+
+interface deleteProductFail {
+    type: ActionType.DELETE_PRODUCT_FAIL,
+    payload: string
+}
+
+
+export type Action =  
 | getUserRequestAction
 | GetUserSuccessAction
 | GetUserFailAction
@@ -67,3 +65,8 @@ export type Action = GetNoteAction
 | GetProductList
 | GetProductListSuccess
 | GetProductListFail
+| GetCategories
+| GetCategoriesFail
+| deleteProduct
+| deleteProductSuccess
+| deleteProductFail

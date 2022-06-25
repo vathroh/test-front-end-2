@@ -1,6 +1,5 @@
 export * from './store'
-export * as actionCreators from './actions/action-creators/noteActions'
-export * as bankactionCreators from './actions/action-creators/bankAction'
 export * as userActionCreators from './actions/action-creators/userAction'
 export * as productActionCreators from './actions/action-creators/productAction'
+export * as categoryActionCreators from './actions/action-creators/categoryAction'
 export * from './reducers'

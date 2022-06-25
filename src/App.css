@@ -208,3 +208,13 @@ aside .ant-layout-sider-children .logo {
 .ant-input {
   border-radius: 10px;
 }
+
+.ant-modal-header,
+.ant-modal-content {
+  border-radius: 10px;
+}
+
+.ant-btn.ant-btn-primary {
+  border-radius: 10px;
+  background-color: #0050B3;
+}

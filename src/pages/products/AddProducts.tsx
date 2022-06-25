@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import backBtn from '../../images/backBtn.svg'
 import { useNavigate } from 'react-router-dom';
-import { Typography, Card, Form, Input, PageHeader, Row, Col, Badge, Space, Switch, Select, AutoComplete, Checkbox, Radio, Avatar, Divider, Modal, Button } from 'antd';
-import Icon, { CheckCircleTwoTone, PlusOutlined } from '@ant-design/icons';
+import { Typography, Card, Form, Input, Row, Col, Badge, Switch, Select, AutoComplete, Checkbox, Divider, Button } from 'antd';
+import Icon, { CheckCircleTwoTone } from '@ant-design/icons';
 import type { CustomIconComponentProps } from '@ant-design/icons/lib/components/Icon';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
@@ -11,10 +11,19 @@ import UploadImage from '../../components/UploadImage';
 
 const { Title } = Typography;
 
+export type user = {
+    token: string;
+    user: {
+        tenant: {
+            id: string
+        }
+    }
+}
+
 const AddProducts: React.FunctionComponent = () => {
 
     const navigate = useNavigate()
-
+    
     const backNavigation = () => {
         navigate('/all-products')
     }
@@ -27,18 +36,9 @@ const AddProducts: React.FunctionComponent = () => {
         alert('hai')
     }
 
-    const titleStyle = {
-        width: "100%",
-        background: "red",
-
-    }
 
     const onChange = (checked: boolean) => {
         console.log(`switch to ${checked}`);
-    };
-
-    const handleChange = (value: string) => {
-        console.log(`selected ${value}`);
     };
 
     const { Option } = Select;
@@ -58,24 +58,14 @@ const AddProducts: React.FunctionComponent = () => {
     );
 
 
-
-  
-
-
-   
-
     return (
         <div>
-            {/* <PageHeader
-                className="site-page-header"
-                title="Add Product"
-            /> */}
+
             <div className='add-products-title'>
                 <img onClick={backNavigation} src={backBtn} alt="back-button" />
                 <Title level={3}>Add Product</Title>
             </div>
 
-            {/* <Card title="Product Information" bordered={true}> */}
             <Form
                 name="addproductform"
                 labelCol={{ span: 8 }}
@@ -117,8 +107,8 @@ const AddProducts: React.FunctionComponent = () => {
                         </Col>
                         <Col span={16}>
                             <Form.Item
-                                name="title"
-                                rules={[{ required: true, message: 'Please input title!' }]}
+                                name="status"
+                                rules={[{ required: true, message: 'Please input Product Status!' }]}
                             >
                                 <Switch defaultChecked onChange={onChange} />
                             </Form.Item>
@@ -137,13 +127,13 @@ const AddProducts: React.FunctionComponent = () => {
                         </Col>
                         <Col span={16}>
                             <Form.Item
-                                name="title"
-                                rules={[{ required: true, message: 'Please input title!' }]}
+                                name="categories"
+                                rules={[{ required: true, message: 'Please input categories!' }]}
                             >
                                 <AutoComplete
                                     style={{ width: '100%' }}
-                                    placeholder="Email"
-                                    options={[{ value: 'text 1' }, { value: 'text 2' }]}
+                                    placeholder="Categories"
+                                    // options = { categoryItems }
                                 />
                             </Form.Item>
                         </Col>
@@ -163,7 +153,7 @@ const AddProducts: React.FunctionComponent = () => {
                         <Col span={3}></Col>
                         <Col span={16}>
                             <Form.Item
-                                name='body'
+                                name='description'
                                 valuePropName='data'
                                 getValueFromEvent={(event, editor) => {
                                     const data = editor.getData();
@@ -187,8 +177,8 @@ const AddProducts: React.FunctionComponent = () => {
                         </Col>
                         <Col span={16}>
                             <Form.Item
-                                name="title"
-                                rules={[{ required: true, message: 'Please input title!' }]}
+                                name="locations"
+                                rules={[{ required: true, message: 'Please input locations!' }]}
                             >
                                 <AutoComplete
                                     style={{ width: '100%' }}
@@ -355,55 +345,55 @@ const AddProducts: React.FunctionComponent = () => {
                         </Col>
                         <Col span={3}></Col>
                         <Col span={16}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between'}}>
-                                <div style={{ display: 'flex', width: '25%'}}>
-                            <Form.Item
-                                name="title"
-                                rules={[{ required: true, message: 'Please input title!' }]}
-                            >
-                                <Input />
-                            </Form.Item>
-                            <Form.Item>
-                                <Select defaultValue="cm" style={{ width: 70 }}>
-                                <Option value="cm">cm</Option>
-                                </Select>
-                            </Form.Item>
-                            </div>
+                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <div style={{ display: 'flex', width: '25%' }}>
+                                    <Form.Item
+                                        name="title"
+                                        rules={[{ required: true, message: 'Please input title!' }]}
+                                    >
+                                        <Input />
+                                    </Form.Item>
+                                    <Form.Item>
+                                        <Select defaultValue="cm" style={{ width: 70 }}>
+                                            <Option value="cm">cm</Option>
+                                        </Select>
+                                    </Form.Item>
+                                </div>
 
-                            <div style={{ display: 'flex', width: '25%'}}>
-                            <Form.Item
-                                name="title"
-                                rules={[{ required: true, message: 'Please input title!' }]}
-                            >
-                                <Input />
-                            </Form.Item>
-                            <Form.Item>
-                                <Select defaultValue="cm" style={{ width: 70 }}>
-                                <Option value="cm">cm</Option>
-                                </Select>
-                            </Form.Item>
-                            </div>
+                                <div style={{ display: 'flex', width: '25%' }}>
+                                    <Form.Item
+                                        name="title"
+                                        rules={[{ required: true, message: 'Please input title!' }]}
+                                    >
+                                        <Input />
+                                    </Form.Item>
+                                    <Form.Item>
+                                        <Select defaultValue="cm" style={{ width: 70 }}>
+                                            <Option value="cm">cm</Option>
+                                        </Select>
+                                    </Form.Item>
+                                </div>
 
-                            <div style={{ display: 'flex', width: '25%'}}>
-                            <Form.Item
-                                name="title"
-                                rules={[{ required: true, message: 'Please input title!' }]}
-                            >
-                                <Input />
-                            </Form.Item>
-                            <Form.Item>
-                                <Select defaultValue="cm" style={{ width: 70 }}>
-                                <Option value="cm">cm</Option>
-                                </Select>
-                            </Form.Item>
-                            </div>
+                                <div style={{ display: 'flex', width: '25%' }}>
+                                    <Form.Item
+                                        name="title"
+                                        rules={[{ required: true, message: 'Please input title!' }]}
+                                    >
+                                        <Input />
+                                    </Form.Item>
+                                    <Form.Item>
+                                        <Select defaultValue="cm" style={{ width: 70 }}>
+                                            <Option value="cm">cm</Option>
+                                        </Select>
+                                    </Form.Item>
+                                </div>
                             </div>
                         </Col>
                     </Row>
                     <Row style={{ marginBottom: "20px" }}>
                         <Col span={5}>
                             <div style={{ display: 'flex' }}>
-                            <h4 style={{ marginRight: "10px" }}>Size</h4>
+                                <h4 style={{ marginRight: "10px" }}>Size</h4>
                                 <Badge
                                     className="site-badge-count-109"
                                     count={'Required'}
@@ -419,7 +409,7 @@ const AddProducts: React.FunctionComponent = () => {
                                 rules={[{ required: true, message: 'Please input title!' }]}
                             >
                                 <Select defaultValue="gr">
-                                <Option value="gr">gr</Option>
+                                    <Option value="gr">gr</Option>
                                 </Select>
                             </Form.Item>
                         </Col>
@@ -449,12 +439,12 @@ const AddProducts: React.FunctionComponent = () => {
                         </Col>
                         <Col span={3}></Col>
                         <Col span={16}>
-                            <div style={{ display: 'flex', justifyContent: 'space-around'}}>
-                            <UploadImage text="Main Image" />
-                            <UploadImage text="Image 2" />
-                            <UploadImage text="Image 3" />
-                            <UploadImage text="Image 4" />
-                            </div>                           
+                            <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+                                <UploadImage text="Main Image" />
+                                <UploadImage text="Image 2" />
+                                <UploadImage text="Image 3" />
+                                <UploadImage text="Image 4" />
+                            </div>
                         </Col>
                     </Row>
                 </Card>
@@ -495,7 +485,7 @@ const AddProducts: React.FunctionComponent = () => {
                         <Col span={3}></Col>
                         <Col span={16}>
                             <Form.Item
-                                name="title"                                
+                                name="title"
                                 rules={[{ required: true, message: 'Please input title!' }]}
                             >
                                 <Input placeholder="Unit (ex: pcs, kg)" />
@@ -526,7 +516,7 @@ const AddProducts: React.FunctionComponent = () => {
                 </Card>
                 <Divider />
                 <div style={{ width: '100%', height: 40 }}>
-                <Button style={{ background: '#0050B3', color: '#fff', float: 'right', borderRadius: 10}}>Save</Button>
+                    <Button style={{ background: '#0050B3', color: '#fff', float: 'right', borderRadius: 10 }} htmlType="submit">Save</Button>
                 </div>
             </Form>
         </div>
